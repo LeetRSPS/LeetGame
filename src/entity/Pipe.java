@@ -13,7 +13,6 @@ import java.util.Random;
 public class Pipe extends Entity {
 
     GamePanel gp;
-    //KeyHandler keyH;
     Tile[] tile;
 
     public Pipe(GamePanel gp) {
@@ -45,8 +44,6 @@ public class Pipe extends Entity {
 
         Random rand = new Random();
         int rand2 = rand.nextInt(maximumHeight-minimumHeight) + minimumHeight;
-
-        score++;
 
         x -= speed;
         x2 -= speed ;

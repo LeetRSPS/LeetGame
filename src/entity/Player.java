@@ -2,12 +2,10 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
-import main.MyFrame;
 import tile.Tile;
 import tile.TileManager;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -37,32 +35,10 @@ public class Player extends Entity {
     }
 
     public void update() {
-        if (keyH.spacePressed) {
-            y -= speed * 2;
-        } else {
-            y += speed;
-        }
-
-        if(y > gp.screenHeight - 40 || y < -gp.screenHeight + 250) {
-            gp.gameFinished = true;
-        }
-
-        if(!gp.gameFinished) {
-            score++;
-        }
-
-
-        System.out.println(score);
-        spriteCounter++;
-        if(spriteCounter > 10) {
-            if(spriteNumber == 1) {
-                spriteNumber = 2;
-            } else if(spriteNumber == 2) {
-                spriteNumber = 1;
-            }
-            spriteCounter = 0;
-        }
-
+        checkPlayerInput();
+        checkPlayerPosition();
+        scoreHandler();
+        animatePlayerFrames();
     }
 
     public void getPlayerImage() {
@@ -76,7 +52,9 @@ public class Player extends Entity {
     }
 
     public void draw(Graphics2D g2) {
+
         BufferedImage image = null;
+
         switch(spriteNumber) {
             case 1:
                 image = playerframe0;
@@ -85,9 +63,11 @@ public class Player extends Entity {
                 image = playerframe2;
                 break;
         }
+
+        //Draw player sprite
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
 
-        g2.setBackground(Color.black);
+        //Draw Score Tab
         g2.fillRect(0, 0, gp.tileSize * 4 + 10, gp.tileSize);
         g2.setColor(Color.white);
         g2.setFont(new Font("TimesRoman", Font.PLAIN, 13));
@@ -95,14 +75,50 @@ public class Player extends Entity {
     }
 
     public void drawDeath(Graphics2D g3){
-        //System.out.println("Current Kill Coordinate for Y value: " + x);
         gp.gameFinished = false;
         keyH.canMove = false;
+
+        //Death message
         g3.setColor(Color.white);
         g3.drawString("Oh dear... you have died.", gp.screenWidth / 4, gp.screenHeight / 2);
+
+        //Death Box
         g3.setColor(Color.red);
         g3.fillRect(65,50,gp.screenWidth / 2,gp.screenHeight / 4);
+        //Death Box Score Text
         g3.setColor(Color.white);
         g3.drawString("You scored: " + score,85, 88);
+    }
+
+    public void checkPlayerInput() {
+        if (keyH.spacePressed) {
+            y -= speed * 2;
+        } else {
+            y += speed;
         }
+    }
+
+    public void checkPlayerPosition() {
+        if(y > gp.screenHeight - 40 || y < -gp.screenHeight + 250) {
+            gp.gameFinished = true;
+        }
+    }
+
+    public void scoreHandler() {
+        if(!gp.gameFinished) {
+            score++;
+        }
+    }
+
+    public void animatePlayerFrames() {
+        spriteCounter++;
+        if(spriteCounter > 10) {
+            if(spriteNumber == 1) {
+                spriteNumber = 2;
+            } else if(spriteNumber == 2) {
+                spriteNumber = 1;
+            }
+            spriteCounter = 0;
+        }
+    }
 }

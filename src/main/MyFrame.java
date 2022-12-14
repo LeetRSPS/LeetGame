@@ -1,20 +1,13 @@
 package main;
 
-import entity.Entity;
-import entity.Player;
-import tile.Tile;
 import tile.TileManager;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.InputStream;
 
-import static com.sun.org.apache.xerces.internal.utils.SecuritySupport.getResourceAsStream;
 
 public class MyFrame extends JFrame {
 
@@ -60,11 +53,4 @@ public class MyFrame extends JFrame {
             e.printStackTrace();
         }
     }
-
-    //@Override
-    /*public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==resetButton) {
-            gamePanel.initializeGameSettings();
-        }
-    }*/
 }

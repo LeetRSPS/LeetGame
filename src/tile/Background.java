@@ -31,6 +31,7 @@ public Background(GamePanel gp){
     public void draw(Graphics2D g2) {
         g2.drawImage(tile[0].image, 0, 0, gp.screenWidth, gp.screenHeight, null);
     }
+
     public void update() {
     }
 }

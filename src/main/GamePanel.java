@@ -32,7 +32,6 @@ public class GamePanel extends JPanel implements Runnable {
     Player player = new Player(this, this.keyHandler);
     Pipe pipe = new Pipe(this);
     Background background = new Background(this);
-    Entity entity = new Entity();
 
     public GamePanel() {
 
@@ -47,7 +46,6 @@ public class GamePanel extends JPanel implements Runnable {
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
-
     }
 
     @Override
@@ -62,7 +60,6 @@ public class GamePanel extends JPanel implements Runnable {
 
             repaint();
 
-
             try {
                 double remainingTime = nextDrawTime - System.nanoTime();
                 remainingTime = remainingTime/1000000;
@@ -70,6 +67,7 @@ public class GamePanel extends JPanel implements Runnable {
                 if(remainingTime < 0) {
                     remainingTime = 0;
                 }
+
                 Thread.sleep((long) remainingTime);
                 nextDrawTime += drawInterval;
             } catch(InterruptedException e){
@@ -82,7 +80,6 @@ public class GamePanel extends JPanel implements Runnable {
         tileManager.update();
         player.update();
         pipe.update();
-
     }
 
     public void paintComponent(Graphics g) {
@@ -94,12 +91,11 @@ public class GamePanel extends JPanel implements Runnable {
             background.draw(g2);
             player.draw(g2);
             pipe.draw(g2);
-
         }
         if(gameFinished) {
             player.drawDeath(g2);
-
         }
+
         g2.dispose();
     }
 
@@ -108,6 +104,5 @@ public class GamePanel extends JPanel implements Runnable {
         keyHandler.canMove = true;
         player.initializePlayer();
         pipe.initializePipe();
-
     }
 }
