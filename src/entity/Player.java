@@ -15,14 +15,12 @@ public class Player extends Entity {
      GamePanel gp;
      KeyHandler keyH;
      Tile[] tile;
-     public int score;
 
     public Player(GamePanel gp, KeyHandler keyHandler) {
 
         this.gp = gp;
         this.keyH = keyHandler;
         tile = new Tile[10];
-        score = 0;
         getPlayerImage();
         initializePlayer();
     }
@@ -30,14 +28,12 @@ public class Player extends Entity {
     public void initializePlayer() {
         x = 100;
         y = 100;
-        score = 0;
         speed = 3;
     }
 
     public void update() {
         checkPlayerInput();
         checkPlayerPosition();
-        scoreHandler();
         animatePlayerFrames();
     }
 
@@ -71,7 +67,7 @@ public class Player extends Entity {
         g2.fillRect(0, 0, gp.tileSize * 4 + 10, gp.tileSize);
         g2.setColor(Color.white);
         g2.setFont(new Font("TimesRoman", Font.PLAIN, 13));
-        g2.drawString(("Score: " + score), 5 , 12);
+        g2.drawString(("Score: " + Entity.score), 5 , 12);
     }
 
     public void drawDeath(Graphics2D g3){
@@ -92,7 +88,7 @@ public class Player extends Entity {
 
     public void checkPlayerInput() {
         if (keyH.spacePressed) {
-            y -= speed * 2;
+            y -= speed;
         } else {
             y += speed;
         }
@@ -102,12 +98,10 @@ public class Player extends Entity {
         if(y > gp.screenHeight - 40 || y < -gp.screenHeight + 250) {
             gp.gameFinished = true;
         }
-    }
-
-    public void scoreHandler() {
-        if(!gp.gameFinished) {
-            score++;
+        if(collisionOn) {
+            gp.gameFinished = true;
         }
+        CollisionDetector.checkTile(this);
     }
 
     public void animatePlayerFrames() {

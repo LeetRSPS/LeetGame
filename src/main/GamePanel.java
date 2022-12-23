@@ -28,7 +28,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     TileManager tileManager = new TileManager(this);
     KeyHandler keyHandler = new KeyHandler();
-    Thread gameThread;
+    public static Thread gameThread;
     Player player = new Player(this, this.keyHandler);
     Pipe pipe = new Pipe(this);
     Background background = new Background(this);
@@ -77,9 +77,10 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        tileManager.update();
         player.update();
         pipe.update();
+        tileManager.update();
+
     }
 
     public void paintComponent(Graphics g) {
@@ -100,6 +101,8 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void initializeGameSettings() {
+        Entity.collisionOn = false;
+        Entity.score = 0;
         gameFinished = false;
         keyHandler.canMove = true;
         player.initializePlayer();

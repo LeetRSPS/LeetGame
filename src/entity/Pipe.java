@@ -2,6 +2,7 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
+import org.w3c.dom.css.Rect;
 import tile.Tile;
 import tile.TileManager;
 
@@ -28,13 +29,13 @@ public class Pipe extends Entity {
         int maximumHeight = (175);
 
         Random rand = new Random();
-        int rand2 = rand.nextInt(maximumHeight-minimumHeight) + minimumHeight;
+        int rand2 = rand.nextInt((maximumHeight-minimumHeight) + 1) + minimumHeight;
 
 
-        x = 256;
-        y = rand2;
-        x2 = x;
-        y2 = y - gp.tileSize * 3;
+        pipex = 256;
+        pipey = rand2;
+        pipex2 = 256;
+        pipey2 = pipey - 48;
         speed = 3;
     }
 
@@ -45,17 +46,18 @@ public class Pipe extends Entity {
         Random rand = new Random();
         int rand2 = rand.nextInt(maximumHeight-minimumHeight) + minimumHeight;
 
-        x -= speed;
-        x2 -= speed ;
-        if(x <= 0) {
-            x = 375;
-            y = rand2;
+        pipex -= speed;
+        pipex2 -= speed ;
+        if(pipex <= 0) {
+            pipex = 375;
+            pipey = rand2;
         }
-        if(x2 <= 0) {
-            x2 = 375;
-            y2 = y - gp.tileSize * 3;
+        if(pipex2 <= 0) {
+            pipex2 = 375;
+            pipey2 = pipey - 48;
         }
-        pipePosX = x;
+
+        pipeHeight = pipey + gp.tileSize * 3;
 
     }
 
@@ -80,14 +82,14 @@ public class Pipe extends Entity {
 
     public void draw(Graphics2D g2) {
         //Top Pipe
-        g2.drawImage(tile[2].image, x2, y2, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(tile[2].image, pipex2, pipey2, gp.tileSize, gp.tileSize, null);
         //Top Pipe Extension
-        g2.drawImage(tile[1].image, x2, y2, gp.tileSize, -(gp.tileSize / gp.screenHeight + y), null);
+        g2.drawImage(tile[1].image, pipex2, pipey2, gp.tileSize, -(gp.tileSize / gp.screenHeight + pipey), null);
 
        //BOTTOM PIPE
-        g2.drawImage(tile[0].image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(tile[0].image, pipex, pipey, gp.tileSize, gp.tileSize, null);
        //Bottom Pipe Extension
-        g2.drawImage(tile[1].image, x, y + gp.tileSize, gp.tileSize, gp.tileSize * gp.screenHeight - y, null);
+        g2.drawImage(tile[1].image, pipex, pipey + gp.tileSize, gp.tileSize, gp.tileSize * gp.screenHeight - pipey, null);
     }
 
 }
