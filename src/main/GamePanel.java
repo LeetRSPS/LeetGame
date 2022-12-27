@@ -101,6 +101,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void initializeGameSettings() {
+        HighScoreReader.readHighScore();
         Entity.collisionOn = false;
         Entity.score = 0;
         gameFinished = false;

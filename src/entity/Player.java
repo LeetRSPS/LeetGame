@@ -1,6 +1,8 @@
 package entity;
 
 import main.GamePanel;
+import main.HighScoreReader;
+import main.HighScoreWriter;
 import main.KeyHandler;
 import tile.Tile;
 import tile.TileManager;
@@ -12,9 +14,9 @@ import java.io.IOException;
 
 public class Player extends Entity {
 
-     GamePanel gp;
-     KeyHandler keyH;
-     Tile[] tile;
+    GamePanel gp;
+    KeyHandler keyH;
+    Tile[] tile;
 
     public Player(GamePanel gp, KeyHandler keyHandler) {
 
@@ -39,10 +41,10 @@ public class Player extends Entity {
 
     public void getPlayerImage() {
         try {
-           playerframe0 = ImageIO.read(TileManager.class.getResourceAsStream("/playerframe.png"));
-           playerframe1 = ImageIO.read(TileManager.class.getResourceAsStream("/playerframe1.png"));
-           playerframe2 = ImageIO.read(TileManager.class.getResourceAsStream("/playerframe2.png"));
-        } catch(IOException e) {
+            playerframe0 = ImageIO.read(TileManager.class.getResourceAsStream("/playerframe.png"));
+            playerframe1 = ImageIO.read(TileManager.class.getResourceAsStream("/playerframe1.png"));
+            playerframe2 = ImageIO.read(TileManager.class.getResourceAsStream("/playerframe2.png"));
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -51,7 +53,7 @@ public class Player extends Entity {
 
         BufferedImage image = null;
 
-        switch(spriteNumber) {
+        switch (spriteNumber) {
             case 1:
                 image = playerframe0;
                 break;
@@ -67,10 +69,15 @@ public class Player extends Entity {
         g2.fillRect(0, 0, gp.tileSize * 4 + 10, gp.tileSize);
         g2.setColor(Color.white);
         g2.setFont(new Font("TimesRoman", Font.PLAIN, 13));
-        g2.drawString(("Score: " + Entity.score), 5 , 12);
+        g2.drawString(("Score: " + Entity.score), 5, 12);
     }
 
-    public void drawDeath(Graphics2D g3){
+    public void drawDeath(Graphics2D g3) {
+
+        HighScoreReader.readHighScore();
+        HighScoreWriter.writeFile();
+
+
         gp.gameFinished = false;
         keyH.canMove = false;
 
@@ -80,10 +87,24 @@ public class Player extends Entity {
 
         //Death Box
         g3.setColor(Color.red);
-        g3.fillRect(65,50,gp.screenWidth / 2,gp.screenHeight / 4);
+        g3.fillRect(65, 50, gp.screenWidth / 2, gp.screenHeight / 4);
+
         //Death Box Score Text
         g3.setColor(Color.white);
-        g3.drawString("You scored: " + score,85, 88);
+        g3.drawString("You scored: " + score, 85, 88);
+
+        //High Scores Box + Text
+        g3.fillRect(gp.screenWidth / 5 - 5, gp.screenHeight / 2 + 10, gp.tileSize * 10, gp.tileSize * 4);
+        g3.setColor(Color.BLACK);
+        g3.drawString("High Scores", 95, 150);
+
+        g3.setFont(new Font("SansSerif", Font.PLAIN, 10));
+        g3.drawString("1st: " + HighScoreReader.firstPlaceValue, 50, 160);
+        g3.drawString("2nd: " + HighScoreReader.secondPlaceValue, 50, 170);
+        g3.drawString("3rd: " + HighScoreReader.thirdPlaceValue, 50, 180);
+
+        HighScoreWriter.scoreWritten = false;
+
     }
 
     public void checkPlayerInput() {
@@ -95,10 +116,10 @@ public class Player extends Entity {
     }
 
     public void checkPlayerPosition() {
-        if(y > gp.screenHeight - 40 || y < -gp.screenHeight + 250) {
+        if (y > gp.screenHeight - 40 || y < -gp.screenHeight + 250) {
             gp.gameFinished = true;
         }
-        if(collisionOn) {
+        if (collisionOn) {
             gp.gameFinished = true;
         }
         CollisionDetector.checkTile(this);
@@ -106,10 +127,10 @@ public class Player extends Entity {
 
     public void animatePlayerFrames() {
         spriteCounter++;
-        if(spriteCounter > 10) {
-            if(spriteNumber == 1) {
+        if (spriteCounter > 10) {
+            if (spriteNumber == 1) {
                 spriteNumber = 2;
-            } else if(spriteNumber == 2) {
+            } else if (spriteNumber == 2) {
                 spriteNumber = 1;
             }
             spriteCounter = 0;

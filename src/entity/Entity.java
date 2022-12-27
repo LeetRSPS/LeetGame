@@ -10,6 +10,10 @@ public class Entity {
     public int speed;
     public static boolean canGetScore = true;
 
+    public static int highScore0 = 0;
+    public static int highScore1 = 0;
+    public static int highScore2 = 0;
+
 
     public static boolean collisionOn = false;
     public BufferedImage playerframe0, playerframe1, playerframe2;
