@@ -18,7 +18,6 @@ public class MouseHandler implements MouseListener {
 
         if(button == MouseEvent.BUTTON1 && canMove) {
             mousePressed = true;
-            System.out.println("Mouse Pressed");
         }
     }
 
@@ -28,7 +27,6 @@ public class MouseHandler implements MouseListener {
 
         if(button == MouseEvent.BUTTON1 && canMove) {
             mousePressed = false;
-            System.out.println("Mouse Released");
         }
     }
 
