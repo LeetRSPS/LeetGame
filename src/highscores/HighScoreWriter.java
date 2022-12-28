@@ -1,8 +1,7 @@
-package main;
+package highscores;
 
 import entity.Entity;
 
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -21,7 +20,7 @@ public class HighScoreWriter {
 
         FileWriter writer = null;
         try {
-            writer = new FileWriter("HighScores.txt", false);
+            writer = new FileWriter("highscores.txt", false);
             int linesWritten = 0;
             while (linesWritten < 3) {
                 String line;
@@ -54,9 +53,9 @@ public class HighScoreWriter {
         int firstPlaceScore = HighScoreReader.firstPlaceValue;
         int score = Entity.score;
 
-        if (score > firstPlaceScore)
+        if (score > firstPlaceScore) {
             firstPlaceScore = score;
-
+        }
         return firstPlaceScore;
     }
 
@@ -68,9 +67,8 @@ public class HighScoreWriter {
 
         if(secondPlaceScore > firstPlaceScore) {
             secondPlaceScore = firstPlaceScore;
-            return secondPlaceScore;
         }
-        if (score > secondPlaceScore && score < firstPlaceScore)
+        if (score >= secondPlaceScore && score < firstPlaceScore)
             secondPlaceScore = score;
 
         return secondPlaceScore;
@@ -82,6 +80,9 @@ public class HighScoreWriter {
         int thirdPlaceScore = HighScoreReader.thirdPlaceValue;
         int score = Entity.score;
 
+        if(thirdPlaceScore > secondPlaceScore) {
+            thirdPlaceScore = secondPlaceScore;
+        }
         if (score > thirdPlaceScore && score < secondPlaceScore)
             thirdPlaceScore = score;
 

@@ -1,15 +1,14 @@
 package main;
 
+import highscores.HighScoreReader;
 import entity.Entity;
 import entity.Pipe;
 import entity.Player;
-import main.KeyHandler;
 import tile.Background;
 import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.security.Key;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -28,8 +27,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     TileManager tileManager = new TileManager(this);
     KeyHandler keyHandler = new KeyHandler();
+    MouseHandler mouseHandler = new MouseHandler();
     public static Thread gameThread;
-    Player player = new Player(this, this.keyHandler);
+    Player player = new Player(this, this.keyHandler, this.mouseHandler);
     Pipe pipe = new Pipe(this);
     Background background = new Background(this);
 
@@ -39,6 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
+        this.addMouseListener(mouseHandler);
         this.setFocusable(true);
         this.setVisible(true);
     }
@@ -105,7 +106,10 @@ public class GamePanel extends JPanel implements Runnable {
         Entity.collisionOn = false;
         Entity.score = 0;
         gameFinished = false;
+        keyHandler.spacePressed = false;
+        mouseHandler.mousePressed = false;
         keyHandler.canMove = true;
+        mouseHandler.canMove = true;
         player.initializePlayer();
         pipe.initializePipe();
     }

@@ -1,4 +1,4 @@
-package main;
+package highscores;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,17 +10,15 @@ public class HighScoreReader {
     public static int secondPlaceValue = 0;
     public static int thirdPlaceValue = 0;
 
-    public static int[] readHighScore() {
-        int[] highScores = new int[3];
+    public static void readHighScore() {
 
         try {
-            FileReader reader = new FileReader("HighScores.txt");
+            FileReader reader = new FileReader("highscores.txt");
             BufferedReader br = new BufferedReader(reader);
             String line;
             int lineNumber = 0;
 
             while ((line = br.readLine()) != null) {
-                highScores[lineNumber] = Integer.parseInt(line);
                 lineNumber++;
 
                 if (lineNumber == 1) {
@@ -38,6 +36,5 @@ public class HighScoreReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return highScores;
     }
 }

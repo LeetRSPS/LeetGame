@@ -1,9 +1,10 @@
 package entity;
 
 import main.GamePanel;
-import main.HighScoreReader;
-import main.HighScoreWriter;
+import highscores.HighScoreReader;
+import highscores.HighScoreWriter;
 import main.KeyHandler;
+import main.MouseHandler;
 import tile.Tile;
 import tile.TileManager;
 
@@ -16,12 +17,14 @@ public class Player extends Entity {
 
     GamePanel gp;
     KeyHandler keyH;
+    MouseHandler mouseH;
     Tile[] tile;
 
-    public Player(GamePanel gp, KeyHandler keyHandler) {
+    public Player(GamePanel gp, KeyHandler keyHandler, MouseHandler mouseHandler) {
 
         this.gp = gp;
         this.keyH = keyHandler;
+        this.mouseH = mouseHandler;
         tile = new Tile[10];
         getPlayerImage();
         initializePlayer();
@@ -80,6 +83,7 @@ public class Player extends Entity {
 
         gp.gameFinished = false;
         keyH.canMove = false;
+        mouseH.canMove = false;
 
         //Death message
         g3.setColor(Color.white);
@@ -109,6 +113,8 @@ public class Player extends Entity {
 
     public void checkPlayerInput() {
         if (keyH.spacePressed) {
+            y -= speed;
+        } else if(mouseH.mousePressed) {
             y -= speed;
         } else {
             y += speed;
