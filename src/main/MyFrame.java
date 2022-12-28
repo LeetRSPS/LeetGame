@@ -30,6 +30,8 @@ public class MyFrame extends JFrame {
         this.setLayout(experimentLayout);
 
         resetButton = new JButton("Reset");
+        resetButton.setForeground(Color.white);
+        resetButton.setBackground(Color.BLACK);
         resetButton.setSize(10, 10);
         resetButton.setLocation(25,25);
         resetButton.addActionListener(e -> gamePanel.initializeGameSettings());

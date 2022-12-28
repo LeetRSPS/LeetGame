@@ -27,6 +27,13 @@ public class CollisionDetector extends Entity {
         Rectangle goalRectangle = new Rectangle(Entity.pipex, 0, 16, 360);
         Rectangle powerUpRectangle = new Rectangle(Entity.powerUpX, Entity.powerUpY, 16, 16);
 
+        if(powerUpRectangle.intersects(bottomPipeRectangle)) {
+            Entity.powerUpX =  Entity.powerUpX + 25;
+        }
+        if(powerUpRectangle.intersects(topPipeRectangle)) {
+            Entity.powerUpX =  Entity.powerUpX + 25;
+        }
+
         if(playerRectangle.intersects(powerUpRectangle)) {
             Entity.powerUpOn = true;
             Entity.displayPowerUp = false;
