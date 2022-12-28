@@ -1,5 +1,6 @@
 package main;
 
+import entity.PowerUp;
 import highscores.HighScoreReader;
 import entity.Entity;
 import entity.Pipe;
@@ -30,6 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
     MouseHandler mouseHandler = new MouseHandler();
     public static Thread gameThread;
     Player player = new Player(this, this.keyHandler, this.mouseHandler);
+    PowerUp powerUp = new PowerUp(this);
     Pipe pipe = new Pipe(this);
     Background background = new Background(this);
 
@@ -81,7 +83,7 @@ public class GamePanel extends JPanel implements Runnable {
         player.update();
         pipe.update();
         tileManager.update();
-
+        powerUp.update();
     }
 
     public void paintComponent(Graphics g) {
@@ -93,6 +95,7 @@ public class GamePanel extends JPanel implements Runnable {
             background.draw(g2);
             player.draw(g2);
             pipe.draw(g2);
+            powerUp.draw(g2);
         }
         if(gameFinished) {
             player.drawDeath(g2);
@@ -105,12 +108,17 @@ public class GamePanel extends JPanel implements Runnable {
         HighScoreReader.readHighScore();
         Entity.collisionOn = false;
         Entity.score = 0;
+        Entity.displayPowerUp = true;
+        Entity.powerUpOn = false;
+        Entity.powerUpCounter = 0;
         gameFinished = false;
         keyHandler.spacePressed = false;
-        mouseHandler.mousePressed = false;
+        mouseHandler.mouse1Pressed = false;
+        mouseHandler.mouse3Pressed = false;
         keyHandler.canMove = true;
         mouseHandler.canMove = true;
         player.initializePlayer();
         pipe.initializePipe();
+        powerUp.initializePowerUp();
     }
 }

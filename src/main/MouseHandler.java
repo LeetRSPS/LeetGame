@@ -5,7 +5,8 @@ import java.awt.event.MouseListener;
 
 public class MouseHandler implements MouseListener {
 
-    public boolean mousePressed;
+    public boolean mouse1Pressed;
+    public boolean mouse3Pressed;
     public boolean canMove = true;
 
     @Override
@@ -17,7 +18,11 @@ public class MouseHandler implements MouseListener {
         int button = e.getButton();
 
         if(button == MouseEvent.BUTTON1 && canMove) {
-            mousePressed = true;
+            mouse1Pressed = true;
+        }
+
+        if(button == MouseEvent.BUTTON3 && canMove) {
+            mouse3Pressed = true;
         }
     }
 
@@ -26,7 +31,11 @@ public class MouseHandler implements MouseListener {
         int button = e.getButton();
 
         if(button == MouseEvent.BUTTON1 && canMove) {
-            mousePressed = false;
+            mouse1Pressed = false;
+        }
+
+        if(button == MouseEvent.BUTTON3 && canMove) {
+            mouse3Pressed = false;
         }
     }
 

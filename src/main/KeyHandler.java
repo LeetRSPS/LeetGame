@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
     public boolean spacePressed;
+    public boolean shiftPressed;
     public boolean canMove = true;
 
     @Override
@@ -19,6 +20,10 @@ public class KeyHandler implements KeyListener {
         if (keyCode == KeyEvent.VK_SPACE && canMove) {
             spacePressed = true;
         }
+
+        if (keyCode == KeyEvent.VK_SHIFT && canMove) {
+            shiftPressed = true;
+        }
     }
 
     @Override
@@ -27,6 +32,10 @@ public class KeyHandler implements KeyListener {
 
         if(keyCode == KeyEvent.VK_SPACE && canMove) {
             spacePressed = false;
+        }
+
+        if (keyCode == KeyEvent.VK_SHIFT && canMove) {
+            shiftPressed = false;
         }
     }
 }
