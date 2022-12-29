@@ -108,8 +108,8 @@ public class GamePanel extends JPanel implements Runnable {
         HighScoreReader.readHighScore();
         Entity.collisionOn = false;
         Entity.score = 0;
-        Entity.displayPowerUp = true;
-        Entity.powerUpOn = false;
+        Entity.canSpawnPowerUp = true;
+        Entity.capePowerUpEnabled = false;
         Entity.powerUpCounter = 0;
         gameFinished = false;
         keyHandler.spacePressed = false;

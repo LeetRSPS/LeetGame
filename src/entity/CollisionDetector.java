@@ -35,24 +35,26 @@ public class CollisionDetector extends Entity {
         }
 
         if(playerRectangle.intersects(powerUpRectangle)) {
-            Entity.powerUpOn = true;
-            Entity.displayPowerUp = false;
+            Entity.capePowerUpEnabled = true;
+            Entity.canSpawnPowerUp = false;
         }
         if (playerRectangle.intersects(topPipeRectangle) || playerRectangle.intersects(bottomPipeRectangle)) {
             Entity.collisionOn = true;
         } else {
             if (playerRectangle.intersects(goalRectangle) && playerRectangle.x > (bottomPipeRectangle.x + 12)) {
-                if(Entity.powerUpOn) {
-                    if(Entity.powerUpCounter > 3) {
-                        Entity.powerUpCounter = 0;
-                        Entity.displayPowerUp = true;
-                        Entity.powerUpOn = false;
+                if(Entity.capePowerUpEnabled) {
+                    if(Entity.powerUpCounter == 4) {
+                        Entity.capePowerUpEnabled = false;
                     }
-                    Entity.powerUpCounter++;
                 }
+                if(Entity.powerUpCounter == 10) {
+                    Entity.powerUpCounter = 0;
+                    Entity.canSpawnPowerUp = true;
+                }
+                Entity.powerUpCounter++;
                 Entity.score++;
                 System.out.println("powerUpCounter = " + Entity.powerUpCounter);
-                System.out.println("powerUpOnBoolean = " + Entity.powerUpOn);
+                System.out.println("capePowerUpEnabled = " + Entity.capePowerUpEnabled);
 
             }
         }

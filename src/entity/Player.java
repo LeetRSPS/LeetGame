@@ -45,8 +45,9 @@ public class Player extends Entity {
     public void getPlayerImage() {
         try {
             playerframe0 = ImageIO.read(TileManager.class.getResourceAsStream("/playerframe.png"));
-            playerframe1 = ImageIO.read(TileManager.class.getResourceAsStream("/playerframe1.png"));
             playerframe2 = ImageIO.read(TileManager.class.getResourceAsStream("/playerframe2.png"));
+            playercapeframe1 = ImageIO.read(TileManager.class.getResourceAsStream("/playercapeframe.png"));
+            playercapeframe2 = ImageIO.read(TileManager.class.getResourceAsStream("/playercapeframe2.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -58,10 +59,19 @@ public class Player extends Entity {
 
         switch (spriteNumber) {
             case 1:
-                image = playerframe0;
+                if(capePowerUpEnabled) {
+                    image = playercapeframe1;
+                } else {
+                    image = playerframe0;
+                }
                 break;
+
             case 2:
-                image = playerframe2;
+                if(capePowerUpEnabled) {
+                    image = playercapeframe2;
+                } else {
+                    image = playerframe2;
+                }
                 break;
         }
 
@@ -117,7 +127,7 @@ public class Player extends Entity {
         } else if(mouseH.mouse1Pressed) {
             y -= speed;
         } else {
-            if(powerUpOn && mouseH.mouse3Pressed || powerUpOn && keyH.shiftPressed) {
+            if(capePowerUpEnabled && mouseH.mouse3Pressed || capePowerUpEnabled && keyH.shiftPressed) {
                 y += speed / 2;
             } else {
                 y += speed;

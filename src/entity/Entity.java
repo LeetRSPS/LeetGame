@@ -10,10 +10,10 @@ public class Entity {
     public static int powerUpX, powerUpY;
     public int speed;
     public static boolean collisionOn = false;
-    public static boolean displayPowerUp = true;
     public static int powerUpCounter = 0;
-    public static boolean powerUpOn = false;
-    public BufferedImage playerframe0, playerframe1, playerframe2;
+    public static boolean capePowerUpEnabled = false;
+    public static boolean canSpawnPowerUp = true;
+    public BufferedImage playerframe0, playerframe2, playercapeframe1, playercapeframe2;
     public int spriteCounter = 0;
     public int spriteNumber = 1;
     public static int score = 0;

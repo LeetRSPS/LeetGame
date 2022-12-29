@@ -68,8 +68,9 @@ public class HighScoreWriter {
         if(secondPlaceScore > firstPlaceScore) {
             secondPlaceScore = firstPlaceScore;
         }
-        if (score >= secondPlaceScore && score < firstPlaceScore)
+        if (score >= secondPlaceScore && score < firstPlaceScore) {
             secondPlaceScore = score;
+        }
 
         return secondPlaceScore;
     }
@@ -83,9 +84,9 @@ public class HighScoreWriter {
         if(thirdPlaceScore > secondPlaceScore) {
             thirdPlaceScore = secondPlaceScore;
         }
-        if (score > thirdPlaceScore && score < secondPlaceScore)
+        if (score > thirdPlaceScore && score < secondPlaceScore) {
             thirdPlaceScore = score;
-
+        }
         return thirdPlaceScore;
     }
 

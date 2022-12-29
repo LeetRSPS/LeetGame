@@ -44,9 +44,11 @@ public class PowerUp extends Entity {
 
         powerUpX -= speed;
 
-        if (powerUpX <= 0) {
-            powerUpX = 375 + 50;
-            powerUpY = rand2;
+        if (canSpawnPowerUp) {
+            if (powerUpX <= 0) {
+                powerUpX = 375 + 50;
+                powerUpY = rand2;
+            }
         }
     }
 
@@ -66,13 +68,15 @@ public class PowerUp extends Entity {
     }
 
     public void draw(Graphics2D g2) {
-        if(Entity.powerUpOn) {
+        //Top Left Icon showing if it's active
+        if(Entity.capePowerUpEnabled) {
             g2.drawImage(tile[3].image, 16, 16, gp.tileSize * 2, gp.tileSize * 2, null);
         } else {
             g2.drawImage(tile[4].image, 16, 16, gp.tileSize * 2, gp.tileSize * 2, null);
         }
 
-        if(displayPowerUp) {
+        //
+        if(canSpawnPowerUp) {
             g2.drawImage(tile[3].image, powerUpX, powerUpY, gp.tileSize, gp.tileSize, null);
         }
 
