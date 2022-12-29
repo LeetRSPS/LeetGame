@@ -48,6 +48,8 @@ public class Player extends Entity {
             playerframe2 = ImageIO.read(TileManager.class.getResourceAsStream("/playerframe2.png"));
             playercapeframe1 = ImageIO.read(TileManager.class.getResourceAsStream("/playercapeframe.png"));
             playercapeframe2 = ImageIO.read(TileManager.class.getResourceAsStream("/playercapeframe2.png"));
+            playerhelmetframe1 = ImageIO.read(TileManager.class.getResourceAsStream("/playerhelmetframe1.png"));
+            playerhelmetframe2 = ImageIO.read(TileManager.class.getResourceAsStream("/playerhelmetframe2.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -61,6 +63,8 @@ public class Player extends Entity {
             case 1:
                 if(capePowerUpEnabled) {
                     image = playercapeframe1;
+                } else if(helmetPowerUpEnabled) {
+                    image = playerhelmetframe1;
                 } else {
                     image = playerframe0;
                 }
@@ -69,6 +73,8 @@ public class Player extends Entity {
             case 2:
                 if(capePowerUpEnabled) {
                     image = playercapeframe2;
+                } else if(helmetPowerUpEnabled) {
+                    image = playerhelmetframe2;
                 } else {
                     image = playerframe2;
                 }

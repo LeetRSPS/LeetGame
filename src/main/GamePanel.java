@@ -1,10 +1,7 @@
 package main;
 
-import entity.PowerUp;
+import entity.*;
 import highscores.HighScoreReader;
-import entity.Entity;
-import entity.Pipe;
-import entity.Player;
 import tile.Background;
 import tile.TileManager;
 
@@ -31,7 +28,8 @@ public class GamePanel extends JPanel implements Runnable {
     MouseHandler mouseHandler = new MouseHandler();
     public static Thread gameThread;
     Player player = new Player(this, this.keyHandler, this.mouseHandler);
-    PowerUp powerUp = new PowerUp(this);
+    CapePowerUp capePowerUp = new CapePowerUp(this);
+    HelmetPowerUp helmetPowerUp = new HelmetPowerUp(this);
     Pipe pipe = new Pipe(this);
     Background background = new Background(this);
 
@@ -83,7 +81,8 @@ public class GamePanel extends JPanel implements Runnable {
         player.update();
         pipe.update();
         tileManager.update();
-        powerUp.update();
+        capePowerUp.update();
+        helmetPowerUp.update();
     }
 
     public void paintComponent(Graphics g) {
@@ -95,7 +94,8 @@ public class GamePanel extends JPanel implements Runnable {
             background.draw(g2);
             player.draw(g2);
             pipe.draw(g2);
-            powerUp.draw(g2);
+            capePowerUp.draw(g2);
+            helmetPowerUp.draw(g2);
         }
         if(gameFinished) {
             player.drawDeath(g2);
@@ -110,6 +110,7 @@ public class GamePanel extends JPanel implements Runnable {
         Entity.score = 0;
         Entity.canSpawnPowerUp = true;
         Entity.capePowerUpEnabled = false;
+        Entity.helmetPowerUpEnabled = false;
         Entity.powerUpCounter = 0;
         gameFinished = false;
         keyHandler.spacePressed = false;
@@ -119,6 +120,6 @@ public class GamePanel extends JPanel implements Runnable {
         mouseHandler.canMove = true;
         player.initializePlayer();
         pipe.initializePipe();
-        powerUp.initializePowerUp();
+        capePowerUp.initializePowerUp();
     }
 }
