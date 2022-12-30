@@ -20,18 +20,14 @@ public class HighScoreReader {
 
             while ((line = br.readLine()) != null) {
                 lineNumber++;
-
                 if (lineNumber == 1) {
                     firstPlaceValue = Integer.parseInt(line);
-                }
-                if (lineNumber == 2) {
+                } else if (lineNumber == 2) {
                     secondPlaceValue = Integer.parseInt(line);
-                }
-                if (lineNumber == 3) {
+                } else {
                     thirdPlaceValue = Integer.parseInt(line);
                 }
             }
-
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();

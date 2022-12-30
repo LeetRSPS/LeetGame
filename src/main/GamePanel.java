@@ -1,9 +1,7 @@
 package main;
 
 import entity.*;
-import highscores.HighScoreReader;
-import tile.Background;
-import tile.TileManager;
+import entity.Background;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,20 +11,18 @@ public class GamePanel extends JPanel implements Runnable {
     //Panel Settings
     public final int originalTileSize = 16; //16x16 pixels per tile
     public final int scale = 1;
-
     public final int tileSize = originalTileSize * scale; //48x48 pixels per tile
     public final int screenColums = 16;
     public final int screenRows = 16;
     public final int screenWidth = tileSize * screenColums; //256 pixels width
     public final int screenHeight = tileSize * screenRows; //256 pixels width
     public final int FPS = 40;
-
     public boolean gameFinished = false;
 
-    TileManager tileManager = new TileManager(this);
+    //Initialize Components
     KeyHandler keyHandler = new KeyHandler();
     MouseHandler mouseHandler = new MouseHandler();
-    public static Thread gameThread;
+    Thread gameThread;
     Player player = new Player(this, this.keyHandler, this.mouseHandler);
     CapePowerUp capePowerUp = new CapePowerUp(this);
     HelmetPowerUp helmetPowerUp = new HelmetPowerUp(this);
@@ -34,7 +30,6 @@ public class GamePanel extends JPanel implements Runnable {
     Background background = new Background(this);
 
     public GamePanel() {
-
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
@@ -51,14 +46,11 @@ public class GamePanel extends JPanel implements Runnable {
 
     @Override
     public void run() {
-
         double drawInterval = 1000000000/FPS;
         double nextDrawTime = System.nanoTime() + drawInterval;
 
         while(gameThread != null) {
-
             update();
-
             repaint();
 
             try {
@@ -80,14 +72,12 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         player.update();
         pipe.update();
-        tileManager.update();
         capePowerUp.update();
         helmetPowerUp.update();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         Graphics2D g2 = (Graphics2D)g;
 
         if(!gameFinished) {
@@ -100,26 +90,28 @@ public class GamePanel extends JPanel implements Runnable {
         if(gameFinished) {
             player.drawDeath(g2);
         }
-
         g2.dispose();
     }
 
     public void initializeGameSettings() {
-        HighScoreReader.readHighScore();
-        Entity.collisionOn = false;
+        //Set Variables Back to Default
+        Entity.powerUpCounter = 0;
         Entity.score = 0;
         Entity.canSpawnPowerUp = true;
         Entity.capePowerUpEnabled = false;
         Entity.helmetPowerUpEnabled = false;
-        Entity.powerUpCounter = 0;
+        Entity.collisionOn = false;
         gameFinished = false;
         keyHandler.spacePressed = false;
         mouseHandler.mouse1Pressed = false;
         mouseHandler.mouse3Pressed = false;
         keyHandler.canMove = true;
         mouseHandler.canMove = true;
+
+        //Re-initialize components
         player.initializePlayer();
         pipe.initializePipe();
         capePowerUp.initializePowerUp();
+        helmetPowerUp.initializePowerUp();
     }
 }

@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
+    //Initialize Variables for Keyhandler
     public boolean spacePressed;
     public boolean shiftPressed;
     public boolean canMove = true;

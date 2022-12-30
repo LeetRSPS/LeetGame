@@ -5,12 +5,9 @@ import highscores.HighScoreReader;
 import highscores.HighScoreWriter;
 import main.KeyHandler;
 import main.MouseHandler;
-import tile.Tile;
-import tile.TileManager;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Player extends Entity {
@@ -18,14 +15,11 @@ public class Player extends Entity {
     GamePanel gp;
     KeyHandler keyH;
     MouseHandler mouseH;
-    Tile[] tile;
 
     public Player(GamePanel gp, KeyHandler keyHandler, MouseHandler mouseHandler) {
-
         this.gp = gp;
         this.keyH = keyHandler;
         this.mouseH = mouseHandler;
-        tile = new Tile[10];
         getPlayerImage();
         initializePlayer();
     }
@@ -44,23 +38,21 @@ public class Player extends Entity {
 
     public void getPlayerImage() {
         try {
-            playerframe0 = ImageIO.read(TileManager.class.getResourceAsStream("/playerframe.png"));
-            playerframe2 = ImageIO.read(TileManager.class.getResourceAsStream("/playerframe2.png"));
-            playercapeframe1 = ImageIO.read(TileManager.class.getResourceAsStream("/playercapeframe.png"));
-            playercapeframe2 = ImageIO.read(TileManager.class.getResourceAsStream("/playercapeframe2.png"));
-            playerhelmetframe1 = ImageIO.read(TileManager.class.getResourceAsStream("/playerhelmetframe1.png"));
-            playerhelmetframe2 = ImageIO.read(TileManager.class.getResourceAsStream("/playerhelmetframe2.png"));
+            playerframe0 = ImageIO.read(Entity.class.getResourceAsStream("/playerframe.png"));
+            playerframe2 = ImageIO.read(Entity.class.getResourceAsStream("/playerframe2.png"));
+            playercapeframe1 = ImageIO.read(Entity.class.getResourceAsStream("/playercapeframe.png"));
+            playercapeframe2 = ImageIO.read(Entity.class.getResourceAsStream("/playercapeframe2.png"));
+            playerhelmetframe1 = ImageIO.read(Entity.class.getResourceAsStream("/playerhelmetframe1.png"));
+            playerhelmetframe2 = ImageIO.read(Entity.class.getResourceAsStream("/playerhelmetframe2.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void draw(Graphics2D g2) {
-
-        BufferedImage image = null;
-
         switch (spriteNumber) {
             case 1:
+                //SetFrame1Sprites
                 if(capePowerUpEnabled) {
                     image = playercapeframe1;
                 } else if(helmetPowerUpEnabled) {
@@ -71,6 +63,7 @@ public class Player extends Entity {
                 break;
 
             case 2:
+                //SetFrame2Sprites
                 if(capePowerUpEnabled) {
                     image = playercapeframe2;
                 } else if(helmetPowerUpEnabled) {
@@ -92,10 +85,8 @@ public class Player extends Entity {
     }
 
     public void drawDeath(Graphics2D g3) {
-
         HighScoreReader.readHighScore();
         HighScoreWriter.writeFile();
-
 
         gp.gameFinished = false;
         keyH.canMove = false;
@@ -148,7 +139,7 @@ public class Player extends Entity {
         if (collisionOn) {
             gp.gameFinished = true;
         }
-        CollisionDetector.checkTile(this);
+        CollisionDetector.checkCollisions(this);
     }
 
     public void animatePlayerFrames() {

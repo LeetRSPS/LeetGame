@@ -1,23 +1,18 @@
 package entity;
 
 import main.GamePanel;
-import tile.Tile;
-import tile.TileManager;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
 import java.util.Random;
 
-
 public class HelmetPowerUp extends Entity {
 
     GamePanel gp;
-    Tile[] tile;
 
     public HelmetPowerUp(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[10];
         getPowerUpImage();
         initializePowerUp();
     }
@@ -25,10 +20,8 @@ public class HelmetPowerUp extends Entity {
     public void initializePowerUp() {
         int minimumHeight = (100 - gp.tileSize * 2 - 5);
         int maximumHeight = (175);
-
         Random rand = new Random();
         int rand2 = rand.nextInt((maximumHeight - minimumHeight) + 1) + minimumHeight;
-
 
         helmetPowerUpX = 256 + 120;
         helmetPowerUpY = rand2;
@@ -38,7 +31,6 @@ public class HelmetPowerUp extends Entity {
     public void update() {
         int minimumHeight = (100 - gp.tileSize * 2 - 5);
         int maximumHeight = (175);
-
         Random rand = new Random();
         int rand2 = rand.nextInt(maximumHeight - minimumHeight) + minimumHeight;
 
@@ -56,15 +48,10 @@ public class HelmetPowerUp extends Entity {
     }
 
     public void getPowerUpImage() {
+        //Get helmet powerup images
         try {
-            tile[5] = new Tile();
-            tile[5].image =
-                    ImageIO.read(TileManager.class.getResourceAsStream("/helmetPowerUp.png"));
-
-            tile[6] = new Tile();
-            tile[6].image =
-                    ImageIO.read(TileManager.class.getResourceAsStream("/helmetPowerUpOff.png"));
-
+            helmet = ImageIO.read(Entity.class.getResourceAsStream("/helmetPowerUp.png"));
+            helmetInactive = ImageIO.read(Entity.class.getResourceAsStream("/helmetPowerUpOff.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -73,17 +60,14 @@ public class HelmetPowerUp extends Entity {
     public void draw(Graphics2D g2) {
         //Top Left Icon showing if it's active
         if(Entity.helmetPowerUpEnabled) {
-            g2.drawImage(tile[5].image, 16, 48, gp.tileSize * 2, gp.tileSize * 2, null);
+            g2.drawImage(helmet, 16, 48, gp.tileSize * 2, gp.tileSize * 2, null);
         } else {
-            g2.drawImage(tile[6].image, 16, 48, gp.tileSize * 2, gp.tileSize * 2, null);
+            g2.drawImage(helmetInactive, 16, 48, gp.tileSize * 2, gp.tileSize * 2, null);
         }
 
-        //
+        //if powerUps can spawn && powerUpDecider == 0; "helmetPowerUp", draw powerUp in game world
         if(canSpawnPowerUp && powerUpDecider == 0) {
-            g2.drawImage(tile[5].image, helmetPowerUpX, helmetPowerUpY, gp.tileSize, gp.tileSize, null);
+            g2.drawImage(helmet, helmetPowerUpX, helmetPowerUpY, gp.tileSize, gp.tileSize, null);
         }
-
-
     }
-
 }

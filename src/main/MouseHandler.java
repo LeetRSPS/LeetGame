@@ -5,6 +5,7 @@ import java.awt.event.MouseListener;
 
 public class MouseHandler implements MouseListener {
 
+    //Initialize Variables for MouseHandler
     public boolean mouse1Pressed;
     public boolean mouse3Pressed;
     public boolean canMove = true;
