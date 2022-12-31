@@ -19,10 +19,12 @@ public class GamePanel extends JPanel implements Runnable {
     public final int FPS = 40;
     public boolean gameFinished = false;
 
+    public boolean gamePaused = false;
+
     //Initialize Components
     KeyHandler keyHandler = new KeyHandler();
     MouseHandler mouseHandler = new MouseHandler();
-    Thread gameThread;
+    public Thread gameThread;
     Player player = new Player(this, this.keyHandler, this.mouseHandler);
     CapePowerUp capePowerUp = new CapePowerUp(this);
     HelmetPowerUp helmetPowerUp = new HelmetPowerUp(this);
@@ -50,26 +52,41 @@ public class GamePanel extends JPanel implements Runnable {
         double nextDrawTime = System.nanoTime() + drawInterval;
 
         while(gameThread != null) {
-            update();
-            repaint();
+            if(!gamePaused) {
 
-            try {
-                double remainingTime = nextDrawTime - System.nanoTime();
-                remainingTime = remainingTime/1000000;
+                update();
+                repaint();
 
-                if(remainingTime < 0) {
-                    remainingTime = 0;
+                try {
+                    double remainingTime = nextDrawTime - System.nanoTime();
+                    remainingTime = remainingTime / 1000000;
+
+                    if (remainingTime < 0) {
+                        remainingTime = 0;
+                    }
+
+                    Thread.sleep((long) remainingTime);
+                    nextDrawTime += drawInterval;
+                } catch(InterruptedException e){
+                    e.printStackTrace();
                 }
-
-                Thread.sleep((long) remainingTime);
-                nextDrawTime += drawInterval;
-            } catch(InterruptedException e){
-                e.printStackTrace();
+            } else {
+                try {
+                    while(gamePaused) {
+                        Thread.sleep(100);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
     public void update() {
+        if (gamePaused) {
+            return;
+        }
+
         player.update();
         pipe.update();
         capePowerUp.update();
@@ -79,6 +96,10 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
+
+        if (gamePaused) {
+            return;
+        }
 
         if(!gameFinished) {
             background.draw(g2);

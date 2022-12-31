@@ -121,10 +121,10 @@ public class Player extends Entity {
     public void checkPlayerInput() {
         if (keyH.spacePressed) {
             y -= speed;
-        } else if(mouseH.mouse1Pressed) {
+        } else if (mouseH.mouse1Pressed) {
             y -= speed;
         } else {
-            if(capePowerUpEnabled && mouseH.mouse3Pressed || capePowerUpEnabled && keyH.shiftPressed) {
+            if (capePowerUpEnabled && mouseH.mouse3Pressed || capePowerUpEnabled && keyH.shiftPressed) {
                 y += speed / 2;
             } else {
                 y += speed;
