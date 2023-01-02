@@ -5,6 +5,7 @@ import highscores.HighScoreReader;
 import highscores.HighScoreWriter;
 import main.KeyHandler;
 import main.MouseHandler;
+import main.MouseTracker;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -78,6 +79,7 @@ public class Player extends Entity {
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
 
         //Draw Score Tab
+        g2.setColor(Color.darkGray);
         g2.fillRect(0, 0, gp.tileSize * 4 + 10, gp.tileSize);
         g2.setColor(Color.white);
         g2.setFont(new Font("TimesRoman", Font.PLAIN, 13));
@@ -109,6 +111,7 @@ public class Player extends Entity {
         g3.setColor(Color.BLACK);
         g3.drawString("High Scores", 95, 150);
 
+        //Highscores List
         g3.setFont(new Font("SansSerif", Font.PLAIN, 10));
         g3.drawString("1st: " + HighScoreReader.firstPlaceValue, 50, 160);
         g3.drawString("2nd: " + HighScoreReader.secondPlaceValue, 50, 170);
@@ -119,6 +122,8 @@ public class Player extends Entity {
     }
 
     public void checkPlayerInput() {
+        debugInput();
+
         if (keyH.spacePressed) {
             y -= speed;
         } else if (mouseH.mouse1Pressed) {
@@ -126,6 +131,11 @@ public class Player extends Entity {
         } else {
             if (capePowerUpEnabled && mouseH.mouse3Pressed || capePowerUpEnabled && keyH.shiftPressed) {
                 y += speed / 2;
+                capePowerUpCharge++;
+                if(capePowerUpCharge >= 300) {
+                    capePowerUpCharge = 0;
+                    capePowerUpEnabled = false;
+                }
             } else {
                 y += speed;
             }
@@ -151,6 +161,51 @@ public class Player extends Entity {
                 spriteNumber = 1;
             }
             spriteCounter = 0;
+        }
+    }
+
+    public void debugInput() {
+        //Enable and Disable with Q
+        if (keyH.qPressed) {
+            canDrawDebugPanel = !canDrawDebugPanel;
+            GamePanel.debugModeOn = !GamePanel.debugModeOn;
+            keyH.qPressed = false;
+        }
+
+        //Makes the JFrame Debug button sync with Q toggle
+        if(GamePanel.debugModeOn) {
+            canDrawDebugPanel = true;
+        } else {
+            canDrawDebugPanel = false;
+        }
+
+        //Power Ups when needed for testing over periods of time.
+        //Debug needs to be on and ctrl + tilda + key to enable the powerup.
+        if (GamePanel.debugModeOn) {
+            if (keyH.ctrlPressed && keyH.tildaPressed) {
+                if (keyH.wPressed) {
+                    capePowerUpEnabled = true;
+                }
+                if (keyH.ePressed) {
+                    helmetPowerUpEnabled = true;
+                }
+            }
+        }
+    }
+
+    public void drawDebugPanel(Graphics2D g4) {
+        if(canDrawDebugPanel) {
+            g4.setColor(Color.DARK_GRAY);
+            g4.fillRect(0, 15,gp.tileSize * 10, gp.tileSize * 3);
+            g4.setColor(Color.GREEN);
+            g4.drawString("X: " + MouseTracker.x, 2, 28);
+            g4.drawString("Y: " + MouseTracker.y, 2, 44);
+            g4.drawString("I#: " + amtOfItemsThatExist, 2, 60);
+            //g4.drawString("canSpawnHelmet: " + canSpawnHelmet, 2, 44);
+            //g4.drawString("canSpawnCape: " + canSpawnCape, 2, 60);
+            //g4.drawString("Cape Exists: " + capePowerUpExists, 2, 76);
+            //g4.drawString("Helmet Exists: " + helmetPowerUpExists, 2, 92);
+            //g4.drawString("CanSpawnPowerUp: " +canSpawnPowerUp, 2, 108);
         }
     }
 }

@@ -18,10 +18,11 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = tileSize * screenRows; //256 pixels width
     public final int FPS = 40;
     public boolean gameFinished = false;
-
     public boolean gamePaused = false;
+    public static boolean debugModeOn = false;
 
     //Initialize Components
+    MouseTracker mouseT = new MouseTracker();
     KeyHandler keyHandler = new KeyHandler();
     MouseHandler mouseHandler = new MouseHandler();
     public Thread gameThread;
@@ -30,6 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
     HelmetPowerUp helmetPowerUp = new HelmetPowerUp(this);
     Pipe pipe = new Pipe(this);
     Background background = new Background(this);
+    Entity entity = new Entity();
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -37,6 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
         this.addMouseListener(mouseHandler);
+        this.addMouseMotionListener(mouseT);
         this.setFocusable(true);
         this.setVisible(true);
     }
@@ -89,8 +92,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         player.update();
         pipe.update();
-        capePowerUp.update();
         helmetPowerUp.update();
+        capePowerUp.update();
+        entity.update();
     }
 
     public void paintComponent(Graphics g) {
@@ -103,10 +107,13 @@ public class GamePanel extends JPanel implements Runnable {
 
         if(!gameFinished) {
             background.draw(g2);
-            player.draw(g2);
             pipe.draw(g2);
             capePowerUp.draw(g2);
             helmetPowerUp.draw(g2);
+            player.draw(g2);
+            if(Entity.canDrawDebugPanel) {
+                player.drawDebugPanel(g2);
+            }
         }
         if(gameFinished) {
             player.drawDeath(g2);
@@ -116,23 +123,31 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void initializeGameSettings() {
         //Set Variables Back to Default
+        Entity.canSpawnPowerUp = true;
+        Entity.canSpawnHelmet = true;
+        Entity.canSpawnCape = true;
         Entity.powerUpCounter = 0;
         Entity.score = 0;
-        Entity.canSpawnPowerUp = true;
         Entity.capePowerUpEnabled = false;
         Entity.helmetPowerUpEnabled = false;
         Entity.collisionOn = false;
+        Entity.canDrawDebugPanel = false;
+        Entity.capePowerUpCharge = 0;
+        Entity.amtOfItemsThatExist = 0;
         gameFinished = false;
         keyHandler.spacePressed = false;
         mouseHandler.mouse1Pressed = false;
         mouseHandler.mouse3Pressed = false;
         keyHandler.canMove = true;
         mouseHandler.canMove = true;
+        debugModeOn = false;
+
 
         //Re-initialize components
         player.initializePlayer();
         pipe.initializePipe();
         capePowerUp.initializePowerUp();
         helmetPowerUp.initializePowerUp();
+        entity.initializeEntity();
     }
 }

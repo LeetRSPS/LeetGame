@@ -25,6 +25,12 @@ public class MouseHandler implements MouseListener {
         if(button == MouseEvent.BUTTON3 && canMove) {
             mouse3Pressed = true;
         }
+
+        if(GamePanel.debugModeOn) {
+            int x = e.getX();
+            int y = e.getY();
+            System.out.println("Mouse location | X = " +x+ " | Y = " +y);
+        }
     }
 
     @Override

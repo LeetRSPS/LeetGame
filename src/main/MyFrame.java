@@ -14,6 +14,7 @@ public class MyFrame extends JFrame {
     GamePanel gamePanel;
     JButton resetButton;
     JButton pauseButton;
+    JButton debugButton;
 
     MyFrame() {
         //Gets and Sets icon for JFrame
@@ -41,7 +42,7 @@ public class MyFrame extends JFrame {
         resetButton.addActionListener(e -> gamePanel.initializeGameSettings());
         resetButton.setFocusable(false);
 
-        //Reset Button Settings
+        //Pause Button Settings
         pauseButton = new JButton("Pause");
         pauseButton.setForeground(Color.white);
         pauseButton.setBackground(Color.BLACK);
@@ -50,9 +51,19 @@ public class MyFrame extends JFrame {
         pauseButton.addActionListener(e -> gamePanel.gamePaused = !gamePanel.gamePaused);
         pauseButton.setFocusable(false);
 
+        //Debug Button Settings
+        debugButton = new JButton("Debug");
+        debugButton.setForeground(Color.white);
+        debugButton.setBackground(Color.BLACK);
+        debugButton.setSize(10, 10);
+        debugButton.setLocation(25,25);
+        debugButton.addActionListener(e -> GamePanel.debugModeOn = !GamePanel.debugModeOn);
+        debugButton.setFocusable(false);
+
         gamePanel = new GamePanel();
 
         //Components to JFrame
+        this.add(debugButton);
         this.add(pauseButton);
         this.add(resetButton);
         this.add(gamePanel);
