@@ -1,17 +1,39 @@
 package main;
 
+import org.w3c.dom.css.Rect;
+
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class MouseHandler implements MouseListener {
 
+    GamePanel gp;
+
     //Initialize Variables for MouseHandler
     public boolean mouse1Pressed;
     public boolean mouse3Pressed;
     public boolean canMove = true;
+    public boolean mouseOver = false;
+    public boolean mousePressed = false;
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        if(GamePanel.gameState == GamePanel.pauseState) {
+
+            gp = new GamePanel();
+
+            //Continue Game
+            if (e.getX() > 94 && e.getX() < 160 && e.getY() > 180 && e.getY() < 200) {
+               GamePanel.gameState = GamePanel.playState;
+            }
+
+            //Reset Game
+            if(e.getX() > 10 && e.getX() < 75 && e.getY() > 180 && e.getY() < 200) {
+                gp.initializeGameSettings();
+                GamePanel.gameState = GamePanel.playState;
+            }
+        }
     }
 
     @Override

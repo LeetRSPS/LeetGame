@@ -5,6 +5,7 @@ import entity.Entity;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -48,7 +49,13 @@ public class MyFrame extends JFrame {
         pauseButton.setBackground(Color.BLACK);
         pauseButton.setSize(10, 10);
         pauseButton.setLocation(25,25);
-        pauseButton.addActionListener(e -> gamePanel.gamePaused = !gamePanel.gamePaused);
+        pauseButton.addActionListener(e -> {
+            if(GamePanel.gameState == GamePanel.playState) {
+                GamePanel.gameState = GamePanel.pauseState;
+            } else {
+                GamePanel.gameState = GamePanel.playState;
+            }
+                });
         pauseButton.setFocusable(false);
 
         //Debug Button Settings

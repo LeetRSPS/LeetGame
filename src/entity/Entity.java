@@ -44,6 +44,11 @@ public class Entity {
     public int spriteCounter = 0;
     public int spriteNumber = 1;
 
+    //Interface Animation Counters/Trackers
+    public BufferedImage pauseInterfaceIcon, birdFrame, birdFrame1, birdFrame2;
+    public int interfaceSpriteCounter = 0;
+    public int interfaceSpriteNumber = 1;
+
     //Debug Variables
     public static boolean canDrawDebugPanel = false;
 

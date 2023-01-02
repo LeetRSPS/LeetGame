@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
+    GamePanel gp;
     //Initialize Variables for Keyhandler
     public boolean spacePressed;
     public boolean shiftPressed;
@@ -13,7 +14,12 @@ public class KeyHandler implements KeyListener {
     public boolean ePressed;
     public boolean ctrlPressed;
     public boolean tildaPressed;
+    public boolean escapePressed;
     public boolean canMove = true;
+
+    public KeyHandler(GamePanel gp) {
+        this.gp = gp;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -43,6 +49,16 @@ public class KeyHandler implements KeyListener {
         }
         if(keyCode == KeyEvent.VK_E) {
             ePressed = true;
+        }
+        if(keyCode == KeyEvent.VK_ESCAPE) {
+            if(gp.gameState == gp.playState) {
+                gp.gameState = gp.pauseState;
+                escapePressed = false;
+            }
+            else if(gp.gameState == gp.pauseState) {
+                gp.gameState = gp.playState;
+                escapePressed = false;
+            }
         }
     }
 

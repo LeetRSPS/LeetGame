@@ -86,40 +86,6 @@ public class Player extends Entity {
         g2.drawString(("Score: " + Entity.score), 5, 12);
     }
 
-    public void drawDeath(Graphics2D g3) {
-        HighScoreReader.readHighScore();
-        HighScoreWriter.writeFile();
-
-        gp.gameFinished = false;
-        keyH.canMove = false;
-        mouseH.canMove = false;
-
-        //Death message
-        g3.setColor(Color.white);
-        g3.drawString("Oh dear... you have died.", gp.screenWidth / 4, gp.screenHeight / 2);
-
-        //Death Box
-        g3.setColor(Color.red);
-        g3.fillRect(65, 50, gp.screenWidth / 2, gp.screenHeight / 4);
-
-        //Death Box Score Text
-        g3.setColor(Color.white);
-        g3.drawString("You scored: " + score, 85, 88);
-
-        //High Scores Box + Text
-        g3.fillRect(gp.screenWidth / 5 - 5, gp.screenHeight / 2 + 10, gp.tileSize * 10, gp.tileSize * 4);
-        g3.setColor(Color.BLACK);
-        g3.drawString("High Scores", 95, 150);
-
-        //Highscores List
-        g3.setFont(new Font("SansSerif", Font.PLAIN, 10));
-        g3.drawString("1st: " + HighScoreReader.firstPlaceValue, 50, 160);
-        g3.drawString("2nd: " + HighScoreReader.secondPlaceValue, 50, 170);
-        g3.drawString("3rd: " + HighScoreReader.thirdPlaceValue, 50, 180);
-
-        HighScoreWriter.scoreWritten = false;
-
-    }
 
     public void checkPlayerInput() {
         debugInput();
@@ -145,9 +111,13 @@ public class Player extends Entity {
     public void checkPlayerPosition() {
         if (y > gp.screenHeight - 40 || y < -gp.screenHeight + 250) {
             gp.gameFinished = true;
+            keyH.canMove = false;
+            mouseH.canMove = false;
         }
         if (collisionOn) {
             gp.gameFinished = true;
+            keyH.canMove = false;
+            mouseH.canMove = false;
         }
         CollisionDetector.checkCollisions(this);
     }
@@ -190,22 +160,6 @@ public class Player extends Entity {
                     helmetPowerUpEnabled = true;
                 }
             }
-        }
-    }
-
-    public void drawDebugPanel(Graphics2D g4) {
-        if(canDrawDebugPanel) {
-            g4.setColor(Color.DARK_GRAY);
-            g4.fillRect(0, 15,gp.tileSize * 10, gp.tileSize * 3);
-            g4.setColor(Color.GREEN);
-            g4.drawString("X: " + MouseTracker.x, 2, 28);
-            g4.drawString("Y: " + MouseTracker.y, 2, 44);
-            g4.drawString("I#: " + amtOfItemsThatExist, 2, 60);
-            //g4.drawString("canSpawnHelmet: " + canSpawnHelmet, 2, 44);
-            //g4.drawString("canSpawnCape: " + canSpawnCape, 2, 60);
-            //g4.drawString("Cape Exists: " + capePowerUpExists, 2, 76);
-            //g4.drawString("Helmet Exists: " + helmetPowerUpExists, 2, 92);
-            //g4.drawString("CanSpawnPowerUp: " +canSpawnPowerUp, 2, 108);
         }
     }
 }
