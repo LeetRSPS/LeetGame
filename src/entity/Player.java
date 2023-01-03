@@ -27,7 +27,7 @@ public class Player extends Entity {
 
     public void initializePlayer() {
         x = 100;
-        y = 100;
+        y = 50;
         speed = 3;
     }
 
@@ -45,34 +45,66 @@ public class Player extends Entity {
             playercapeframe2 = ImageIO.read(Entity.class.getResourceAsStream("/playercapeframe2.png"));
             playerhelmetframe1 = ImageIO.read(Entity.class.getResourceAsStream("/playerhelmetframe1.png"));
             playerhelmetframe2 = ImageIO.read(Entity.class.getResourceAsStream("/playerhelmetframe2.png"));
+
+            blueBirdFrame0 = ImageIO.read(Entity.class.getResourceAsStream("/playerframe.png"));
+            blueBirdFrame1 = ImageIO.read(Entity.class.getResourceAsStream("/playerframe2.png"));
+            redBirdFrame0 = ImageIO.read(Entity.class.getResourceAsStream("/redBird0.png"));
+            redBirdFrame1 = ImageIO.read(Entity.class.getResourceAsStream("/redBird1.png"));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void draw(Graphics2D g2) {
-        switch (spriteNumber) {
-            case 1:
-                //SetFrame1Sprites
-                if(capePowerUpEnabled) {
-                    image = playercapeframe1;
-                } else if(helmetPowerUpEnabled) {
-                    image = playerhelmetframe1;
-                } else {
-                    image = playerframe0;
-                }
-                break;
 
-            case 2:
-                //SetFrame2Sprites
-                if(capePowerUpEnabled) {
-                    image = playercapeframe2;
-                } else if(helmetPowerUpEnabled) {
-                    image = playerhelmetframe2;
-                } else {
-                    image = playerframe2;
-                }
-                break;
+        if(GamePanel.selectedBird == GamePanel.blueBird) {
+            switch (spriteNumber) {
+                case 1:
+                    //SetFrame1Sprites
+                    if(capePowerUpEnabled) {
+                        image = playercapeframe1;
+                    } else if(helmetPowerUpEnabled) {
+                        image = playerhelmetframe1;
+                    } else {
+                        image = playerframe0;
+                    }
+                    break;
+                case 2:
+                    //SetFrame2Sprites
+                    if(capePowerUpEnabled) {
+                        image = playercapeframe2;
+                    } else if(helmetPowerUpEnabled) {
+                        image = playerhelmetframe2;
+                    } else {
+                        image = playerframe2;
+                    }
+                    break;
+            }
+        }
+        if(GamePanel.selectedBird == GamePanel.redBird) {
+            switch (spriteNumber) {
+                case 1:
+                    //SetFrame1Sprites
+                    if(capePowerUpEnabled) {
+                        image = playercapeframe1;
+                    } else if(helmetPowerUpEnabled) {
+                        image = playerhelmetframe1;
+                    } else {
+                        image = redBirdFrame0;
+                    }
+                    break;
+                case 2:
+                    //SetFrame2Sprites
+                    if(capePowerUpEnabled) {
+                        image = playercapeframe2;
+                    } else if(helmetPowerUpEnabled) {
+                        image = playerhelmetframe2;
+                    } else {
+                        image = redBirdFrame1;
+                    }
+                    break;
+            }
         }
 
         //Draw player sprite

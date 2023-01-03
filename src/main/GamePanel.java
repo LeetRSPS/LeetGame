@@ -17,16 +17,23 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenWidth = tileSize * screenColums; //256 pixels width
     public final int screenHeight = tileSize * screenRows; //256 pixels width
     public final int FPS = 40;
-    public static boolean gameFinished = false;
-    public static boolean gamePaused = false;
-    public static boolean debugModeOn = false;
 
+    //Game Settings
+    public static boolean gameFinished = false;
+    public static boolean debugModeOn = false;
+    public static boolean switchGameState = false;
+    public static int selectedBird;
+    public static int blueBird = 0;
+    public static int redBird = 1;
+
+    //GameState Settings
     public static int gameState;
+    public static final int titleState = 0;
     public static final int playState = 1;
     public static final int pauseState = 2;
+    public static final int changeBirdState = 3;
 
     //Initialize Components
-    Graphics2D g2;
     static MouseTracker mouseT = new MouseTracker();
     KeyHandler keyHandler = new KeyHandler(this);
     static MouseHandler mouseHandler = new MouseHandler();
@@ -51,7 +58,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void startGameThread() {
-        gameState = playState;
+        gameState = titleState;
         gameThread = new Thread(this);
         gameThread.start();
     }
@@ -84,9 +91,16 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() {
 
+        if(gameState == changeBirdState) {
+            interfaces.update();
+        }
+        if(gameState == titleState) {
+            interfaces.update();
+        }
         if(gameState == pauseState) {
             interfaces.update();
-        } else {
+        }
+        if(gameState == playState) {
             player.update();
             pipe.update();
             helmetPowerUp.update();
@@ -98,6 +112,14 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
+
+        if(gameState == changeBirdState) {
+            interfaces.drawChangeBirdInterface(g2);
+        }
+
+        if(gameState == titleState) {
+            interfaces.drawTitleInterface(g2);
+        }
 
         if(gameState == playState) {
             if(!gameFinished) {
@@ -143,6 +165,10 @@ public class GamePanel extends JPanel implements Runnable {
         keyHandler.canMove = true;
         mouseHandler.canMove = true;
         debugModeOn = false;
+
+        if(switchGameState) {
+            gameState = playState;
+        }
 
         //Re-initialize components
         player.initializePlayer();

@@ -19,6 +19,7 @@ public class MouseHandler implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+
         if(GamePanel.gameState == GamePanel.pauseState) {
 
             gp = new GamePanel();
@@ -27,13 +28,50 @@ public class MouseHandler implements MouseListener {
             if (e.getX() > 94 && e.getX() < 160 && e.getY() > 180 && e.getY() < 200) {
                GamePanel.gameState = GamePanel.playState;
             }
-
             //Reset Game
             if(e.getX() > 10 && e.getX() < 75 && e.getY() > 180 && e.getY() < 200) {
                 gp.initializeGameSettings();
                 GamePanel.gameState = GamePanel.playState;
             }
+            //Quit Game
+            if(e.getX() > 180 && e.getX() < 246 && e.getY() > 180 && e.getY() < 200) {
+                System.exit(0);
+            }
         }
+
+        if(GamePanel.gameState == GamePanel.titleState) {
+            //Play Button
+            if(e.getX() > 94 && e.getX() < 161 && e.getY() > 124 && e.getY() < 157) {
+                GamePanel.gameState = GamePanel.playState;
+                GamePanel.switchGameState = true;
+            }
+            //Change Bird
+            if(e.getX() > 10 && e.getX() < 102 && e.getY() > 180 && e.getY() < 198) {
+                GamePanel.gameState = GamePanel.changeBirdState;
+            }
+            //Change Name
+            if(e.getX() > 154 && e.getX() < 247 && e.getY() > 180 && e.getY() < 198) {
+                System.out.println("Change Name Button Clicked");
+            }
+        }
+
+        if(GamePanel.gameState == GamePanel.changeBirdState) {
+            //Back Button
+            if(e.getX() > 1 && e.getX() < 32 && e.getY() > 0 && e.getY() < 30) {
+                GamePanel.gameState = GamePanel.titleState;
+            }
+
+            //Click Blue Bird Box
+            if(e.getX() > 58 && e.getX() < 118 && e.getY() > 113 && e.getY() < 168) {
+                GamePanel.selectedBird = GamePanel.blueBird;
+            }
+
+            //Click Red Bird Box
+            if(e.getX() > 153 && e.getX() < 213 && e.getY() > 113 && e.getY() < 168) {
+                GamePanel.selectedBird = GamePanel.redBird;
+            }
+        }
+
     }
 
     @Override

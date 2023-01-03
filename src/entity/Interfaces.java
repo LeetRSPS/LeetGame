@@ -9,7 +9,6 @@ import main.MouseTracker;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Interfaces extends Entity {
@@ -27,55 +26,102 @@ public class Interfaces extends Entity {
     public void update() {
         animateInterfaceFrames();
         getInterfaceSpriteImage();
+
+    }
+
+    public void drawChangeBirdInterface(Graphics2D g2) {
+        getPlayerOnInterfaceImage();
+
+        //Main Interface Sprite
+        g2.drawImage(changeBirdIcon,0, 0, null);
+
+        //Birds To Select From
+        g2.drawImage(bluebird, 80, 135, null);
+        g2.drawImage(redbird, 175, 135, null);
+
+        //Bird Selected
+        if(GamePanel.selectedBird == GamePanel.blueBird) {
+            selectedBird = bluebird;
+        }
+        if(GamePanel.selectedBird == GamePanel.redBird) {
+            selectedBird = redbird;
+        }
+
+        g2.drawImage(selectedBird, 127, 68, null);
+    }
+
+    public void drawTitleInterface(Graphics2D g2) {
+        getPlayerOnInterfaceImage();
+
+        //Main Interface Sprite
+        g2.drawImage(titleScreenIcon,0, 0, null);
+        g2.drawImage(bigBirdFrame, 60, 0, null);
+
+        //Play Button
+        Color myGoldColor = new Color(234, 245, 0);
+        g2.setColor(Color.BLACK);
+        g2.fillRect(95, 124, 64, 32);
+        g2.setColor(myGoldColor);
+        g2.drawRect(95, 124, 64, 32);
+        g2.setColor(myGoldColor);
+        g2.drawString("PLAY", 113, 145);
+
+        //Change Bird Button
+        g2.setColor(Color.BLACK);
+        g2.fillRect(10, 180, 90, 16);
+        g2.setColor(myGoldColor);
+        g2.drawRect(10, 180, 90, 16);
+        g2.setColor(myGoldColor);
+        g2.drawString("Change Bird", 18, 193);
+
+        //Change Name
+        g2.setColor(Color.BLACK);
+        g2.fillRect(155, 180, 90, 16);
+        g2.setColor(myGoldColor);
+        g2.drawRect(155, 180, 90, 16);
+        g2.setColor(myGoldColor);
+        g2.drawString("Change Name", 159, 193);
     }
 
     public void drawPauseScreen(Graphics2D g2) {
+        getPlayerOnInterfaceImage();
 
-        switch (interfaceSpriteNumber) {
-            case 1:
-                birdFrame = birdFrame1;
-                break;
-            case 2:
-                birdFrame = birdFrame2;
-                break;
-        }
+        //Main Interface Sprite
+        g2.drawImage(pauseInterfaceIcon,0, 0, null);
+        g2.drawImage(bigBirdFrame, 60, 60, null);
 
-            //Main Interface Sprite
-            g2.drawImage(pauseInterfaceIcon,0, 0, null);
-            g2.drawImage(birdFrame, 60, 60, null);
+        //Button Area Middle
+        Color myGoldColor = new Color(234, 245, 0);
+        g2.setColor(Color.BLACK);
+        g2.fillRect(95, 180, 65, 16);
+        g2.setColor(myGoldColor);
+        g2.drawRect(95, 180, 65, 16);
+        g2.setColor(myGoldColor);
+        g2.drawString("Resume", 105, 193);
 
-            //Button Area Middle
-            Color myGoldColor = new Color(234, 245, 0);
-            g2.setColor(Color.BLACK);
-            g2.fillRect(95, 180, 65, 16);
-            g2.setColor(myGoldColor);
-            g2.drawRect(95, 180, 65, 16);
-            g2.setColor(myGoldColor);
-            g2.drawString("Resume", 105, 193);
+        //Button Area Middle
+        g2.setColor(Color.BLACK);
+        g2.fillRect(10, 180, 65, 16);
+        g2.setColor(myGoldColor);
+        g2.drawRect(10, 180, 65, 16);
+        g2.setColor(myGoldColor);
+        g2.drawString("Reset", 25, 193);
 
-            //Button Area Middle
-            g2.setColor(Color.BLACK);
-            g2.fillRect(10, 180, 65, 16);
-            g2.setColor(myGoldColor);
-            g2.drawRect(10, 180, 65, 16);
-            g2.setColor(myGoldColor);
-            g2.drawString("Reset", 25, 193);
+        //Button Area Right
+        g2.setColor(Color.BLACK);
+        g2.fillRect(180, 180, 65, 16);
+        g2.setColor(myGoldColor);
+        g2.drawRect(180, 180, 65, 16);
+        g2.setColor(myGoldColor);
+        g2.drawString("Quit", 200, 193);
 
-            //Button Area Right
-            g2.setColor(Color.BLACK);
-            g2.fillRect(180, 180, 65, 16);
-            g2.setColor(myGoldColor);
-            g2.drawRect(180, 180, 65, 16);
-            g2.setColor(myGoldColor);
-            g2.drawString("Quit", 200, 193);
-
-            //Main Text
-            g2.setColor(Color.BLACK);
-            g2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 32));
-            g2.drawString("Flappy Leet", gp.screenWidth / 6 + 2, gp.screenHeight / 2 - 80 + 2);
-            g2.setColor(Color.BLUE);
-            g2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 32));
-            g2.drawString("Flappy Leet", gp.screenWidth / 6, gp.screenHeight / 2 - 80);
+        //Main Text
+        g2.setColor(Color.BLACK);
+        g2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 32));
+        g2.drawString("Flappy Leet", gp.screenWidth / 6 + 2, gp.screenHeight / 2 - 80 + 2);
+        g2.setColor(Color.BLUE);
+        g2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 32));
+        g2.drawString("Flappy Leet", gp.screenWidth / 6, gp.screenHeight / 2 - 80);
     }
 
     public void drawDeath(Graphics2D g3) {
@@ -130,9 +176,23 @@ public class Interfaces extends Entity {
 
     public void getInterfaceSpriteImage() {
         try {
-            birdFrame1 = ImageIO.read(Entity.class.getResourceAsStream("/pauseBird.png"));
-            birdFrame2 = ImageIO.read(Entity.class.getResourceAsStream("/pauseBird2.png"));
+            //Title Screen Birds
+            bigBlueBirdFrame1 = ImageIO.read(Entity.class.getResourceAsStream("/pauseBird.png"));
+            bigBlueBirdFrame2 = ImageIO.read(Entity.class.getResourceAsStream("/pauseBird2.png"));
+            bigRedBirdFrame1 = ImageIO.read(Entity.class.getResourceAsStream("/pauseBirdRed.png"));
+            bigRedBirdFrame2 = ImageIO.read(Entity.class.getResourceAsStream("/pauseBirdRed2.png"));
+
+            //Main Interface Backgrounds
             pauseInterfaceIcon = ImageIO.read(Entity.class.getResourceAsStream("/pauseInterfaceIcon.png"));
+            titleScreenIcon = ImageIO.read(Entity.class.getResourceAsStream("/titleScreenBackground.png"));
+            changeBirdIcon = ImageIO.read(Entity.class.getResourceAsStream("/selectBirdBackground.png"));
+
+            //Misc Sprites
+            blueBirdFrame0 = ImageIO.read(Entity.class.getResourceAsStream("/playerframe.png"));
+            blueBirdFrame1 = ImageIO.read(Entity.class.getResourceAsStream("/playerframe2.png"));
+            redBirdFrame0 = ImageIO.read(Entity.class.getResourceAsStream("/redBird0.png"));
+            redBirdFrame1 = ImageIO.read(Entity.class.getResourceAsStream("/redBird1.png"));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -147,6 +207,38 @@ public class Interfaces extends Entity {
                 interfaceSpriteNumber = 1;
             }
             interfaceSpriteCounter = 0;
+        }
+    }
+
+    public void getPlayerOnInterfaceImage() {
+
+        if(GamePanel.selectedBird == GamePanel.blueBird) {
+            switch (interfaceSpriteNumber) {
+                case 1:
+                    bigBirdFrame = bigBlueBirdFrame1;
+                    bluebird = blueBirdFrame0;
+                    redbird = redBirdFrame0;
+                    break;
+                case 2:
+                    bigBirdFrame = bigBlueBirdFrame2;
+                    bluebird = blueBirdFrame1;
+                    redbird = redBirdFrame1;
+                    break;
+            }
+        }
+        if(GamePanel.selectedBird == GamePanel.redBird) {
+            switch (interfaceSpriteNumber) {
+                case 1:
+                    bigBirdFrame = bigRedBirdFrame1;
+                    bluebird = blueBirdFrame0;
+                    redbird = redBirdFrame0;
+                    break;
+                case 2:
+                    bigBirdFrame = bigRedBirdFrame2;
+                    bluebird = blueBirdFrame1;
+                    redbird = redBirdFrame1;
+                    break;
+            }
         }
     }
 }

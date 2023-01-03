@@ -120,14 +120,14 @@ public class Background extends Entity {
             if (score == progressionGates[i]) {
                 //TextBox Background
                 g2.setColor(Color.BLACK);
-                g2.fillRect(getEnterRegionTextRectangleX(), 198, getEnterRegionTextRectangleWidth(), 16);
+                g2.fillRect(getEnterRegionTextRectangleX(), 187, getEnterRegionTextRectangleWidth(), 16);
                 g2.setColor(Color.MAGENTA);
-                g2.drawRect(getEnterRegionTextRectangleX(), 198, getEnterRegionTextRectangleWidth(), 16);
+                g2.drawRect(getEnterRegionTextRectangleX(), 187, getEnterRegionTextRectangleWidth(), 16);
 
                 //Text
                 g2.setColor(Color.WHITE);
                 g2.setFont(new Font("Comic Sans", Font.BOLD, 16));
-                g2.drawString(travelText, getEnterRegionTextRectangleX() + 1, 213);
+                g2.drawString(travelText, getEnterRegionTextRectangleX() + 1, 203);
             }
         }
     }
