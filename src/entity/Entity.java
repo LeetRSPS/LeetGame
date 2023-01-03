@@ -47,7 +47,8 @@ public class Entity {
     //Interface Animation Counters/Trackers
     public BufferedImage pauseInterfaceIcon, bigBirdFrame, bigBlueBirdFrame1,
             bigBlueBirdFrame2, titleScreenIcon, changeBirdIcon, bluebird, blueBirdFrame0,
-            blueBirdFrame1, redbird, redBirdFrame0, redBirdFrame1, selectedBird, bigRedBirdFrame1, bigRedBirdFrame2;
+            blueBirdFrame1, redbird, redBirdFrame0, redBirdFrame1, selectedBird, bigRedBirdFrame1, bigRedBirdFrame2,
+    playerredcapeframe1, playerredcapeframe2, playerredhelmetframe1, playerredhelmetframe2;
     public int interfaceSpriteCounter = 0;
     public int interfaceSpriteNumber = 1;
 

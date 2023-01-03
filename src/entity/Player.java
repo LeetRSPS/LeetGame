@@ -1,11 +1,8 @@
 package entity;
 
 import main.GamePanel;
-import highscores.HighScoreReader;
-import highscores.HighScoreWriter;
 import main.KeyHandler;
 import main.MouseHandler;
-import main.MouseTracker;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -32,9 +29,11 @@ public class Player extends Entity {
     }
 
     public void update() {
-        checkPlayerInput();
-        checkPlayerPosition();
-        animatePlayerFrames();
+        if(GamePanel.gameState == GamePanel.playState) {
+            checkPlayerInput();
+            checkPlayerPosition();
+            animatePlayerFrames();
+        }
     }
 
     public void getPlayerImage() {
@@ -50,6 +49,10 @@ public class Player extends Entity {
             blueBirdFrame1 = ImageIO.read(Entity.class.getResourceAsStream("/playerframe2.png"));
             redBirdFrame0 = ImageIO.read(Entity.class.getResourceAsStream("/redBird0.png"));
             redBirdFrame1 = ImageIO.read(Entity.class.getResourceAsStream("/redBird1.png"));
+            playerredcapeframe1 = ImageIO.read(Entity.class.getResourceAsStream("/playerredcapeframe.png"));
+            playerredcapeframe2 = ImageIO.read(Entity.class.getResourceAsStream("/playerredcapeframe2.png"));
+            playerredhelmetframe1 = ImageIO.read(Entity.class.getResourceAsStream("/playerredhelmetframe1.png"));
+            playerredhelmetframe2 = ImageIO.read(Entity.class.getResourceAsStream("/playerredhelmetframe2.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -87,9 +90,9 @@ public class Player extends Entity {
                 case 1:
                     //SetFrame1Sprites
                     if(capePowerUpEnabled) {
-                        image = playercapeframe1;
+                        image = playerredcapeframe1;
                     } else if(helmetPowerUpEnabled) {
-                        image = playerhelmetframe1;
+                        image = playerredhelmetframe1;
                     } else {
                         image = redBirdFrame0;
                     }
@@ -97,9 +100,9 @@ public class Player extends Entity {
                 case 2:
                     //SetFrame2Sprites
                     if(capePowerUpEnabled) {
-                        image = playercapeframe2;
+                        image = playerredcapeframe2;
                     } else if(helmetPowerUpEnabled) {
-                        image = playerhelmetframe2;
+                        image = playerredhelmetframe2;
                     } else {
                         image = redBirdFrame1;
                     }
