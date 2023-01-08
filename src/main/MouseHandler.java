@@ -20,22 +20,15 @@ public class MouseHandler implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
 
-        if(GamePanel.gameState == GamePanel.pauseState) {
-
-            gp = new GamePanel();
-
-            //Continue Game
-            if (e.getX() > 94 && e.getX() < 160 && e.getY() > 180 && e.getY() < 200) {
-               GamePanel.gameState = GamePanel.playState;
+        if(GamePanel.gameState == GamePanel.deadBirdState) {
+            //Reset Button
+            if(e.getX() > 96 && e.getX() < 161 && e.getY() > 159 && e.getY() < 191) {
+                GamePanel gamePanel = new GamePanel();
+                gamePanel.initializeGameSettings();
             }
-            //Reset Game
-            if(e.getX() > 10 && e.getX() < 75 && e.getY() > 180 && e.getY() < 200) {
-                gp.initializeGameSettings();
-                GamePanel.gameState = GamePanel.playState;
-            }
-            //Quit Game
-            if(e.getX() > 180 && e.getX() < 246 && e.getY() > 180 && e.getY() < 200) {
-                System.exit(0);
+            //Main Menu Button
+            if(e.getX() > 89 && e.getX() < 166 && e.getY() > 192 && e.getY() < 209) {
+                GamePanel.gameState = GamePanel.titleState;
             }
         }
 
@@ -55,7 +48,24 @@ public class MouseHandler implements MouseListener {
                 System.out.println("Change Name Button Clicked");
             }
         }
+        if(GamePanel.gameState == GamePanel.pauseState) {
 
+            //Reset Game Button
+            if (e.getX() > 9 && e.getX() < 76 && e.getY() > 178 && e.getY() < 198) {
+                GamePanel.gameState = GamePanel.playState;
+                GamePanel gamePanel = new GamePanel();
+                gamePanel.initializeGameSettings();
+            }
+            //Resume Game Button
+            if (e.getX() > 94 && e.getX() < 162 && e.getY() > 179 && e.getY() < 196) {
+                GamePanel.gameState = GamePanel.playState;
+            }
+            //Main Menu Button
+            if (e.getX() > 179 && e.getX() < 255 && e.getY() > 179 && e.getY() < 199) {
+                GamePanel.gameState = GamePanel.titleState;
+            }
+
+        }
         if(GamePanel.gameState == GamePanel.changeBirdState) {
             //Back Button
             if(e.getX() > 1 && e.getX() < 32 && e.getY() > 0 && e.getY() < 30) {

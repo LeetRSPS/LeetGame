@@ -148,11 +148,13 @@ public class Player extends Entity {
             gp.gameFinished = true;
             keyH.canMove = false;
             mouseH.canMove = false;
+            GamePanel.gameState = GamePanel.deadBirdState;
         }
         if (collisionOn) {
             gp.gameFinished = true;
             keyH.canMove = false;
             mouseH.canMove = false;
+            GamePanel.gameState = GamePanel.deadBirdState;
         }
         CollisionDetector.checkCollisions(this);
     }

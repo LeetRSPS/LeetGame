@@ -48,9 +48,9 @@ public class HelmetPowerUp extends Entity {
     public void draw(Graphics2D g2) {
         //Top Left Icon showing if it's active
         if(Entity.helmetPowerUpEnabled) {
-            g2.drawImage(helmet, 2, 141, gp.tileSize * 2, gp.tileSize * 2, null);
+            g2.drawImage(helmet, 2, 157, gp.tileSize * 2, gp.tileSize * 2, null);
         } else {
-            g2.drawImage(helmetInactive, 2, 141, gp.tileSize * 2, gp.tileSize * 2, null);
+            g2.drawImage(helmetInactive, 2, 157, gp.tileSize * 2, gp.tileSize * 2, null);
         }
 
         //if powerUps can spawn && powerUpDecider == 0; "helmetPowerUp", draw powerUp in game world

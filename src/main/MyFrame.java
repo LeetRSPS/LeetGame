@@ -31,7 +31,7 @@ public class MyFrame extends JFrame {
         this.setResizable(false);
 
         //FlowLayout for Buttons
-        FlowLayout experimentLayout = new FlowLayout(FlowLayout.TRAILING,0,0);
+        /*FlowLayout experimentLayout = new FlowLayout(FlowLayout.TRAILING,0,0);
         this.setLayout(experimentLayout);
 
         //Reset Button Settings
@@ -65,14 +65,14 @@ public class MyFrame extends JFrame {
         debugButton.setSize(10, 10);
         debugButton.setLocation(25,25);
         debugButton.addActionListener(e -> GamePanel.debugModeOn = !GamePanel.debugModeOn);
-        debugButton.setFocusable(false);
+        debugButton.setFocusable(false);*/
 
         gamePanel = new GamePanel();
 
         //Components to JFrame
-        this.add(debugButton);
+        /*this.add(debugButton);
         this.add(pauseButton);
-        this.add(resetButton);
+        this.add(resetButton);*/
         this.add(gamePanel);
         this.setVisible(true);
 

@@ -32,6 +32,7 @@ public class GamePanel extends JPanel implements Runnable {
     public static final int playState = 1;
     public static final int pauseState = 2;
     public static final int changeBirdState = 3;
+    public static final int deadBirdState = 4;
 
     //Initialize Components
     static MouseTracker mouseT = new MouseTracker();
@@ -133,7 +134,7 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
         }
-        if(gameFinished) {
+        if(gameState == deadBirdState) {
             interfaces.drawDeath(g2);
         }
         if(gameState == pauseState) {

@@ -26,7 +26,6 @@ public class Interfaces extends Entity {
     public void update() {
         animateInterfaceFrames();
         getInterfaceSpriteImage();
-
     }
 
     public void drawChangeBirdInterface(Graphics2D g2) {
@@ -113,7 +112,7 @@ public class Interfaces extends Entity {
         g2.setColor(myGoldColor);
         g2.drawRect(180, 180, 65, 16);
         g2.setColor(myGoldColor);
-        g2.drawString("Quit", 200, 193);
+        g2.drawString("Main Menu", 184, 193);
 
         //Main Text
         g2.setColor(Color.BLACK);
@@ -125,6 +124,7 @@ public class Interfaces extends Entity {
     }
 
     public void drawDeath(Graphics2D g3) {
+
         HighScoreReader.readHighScore();
         HighScoreWriter.writeFile();
 
@@ -132,30 +132,50 @@ public class Interfaces extends Entity {
         keyH.canMove = false;
         mouseH.canMove = false;
 
-        //Death message
-        g3.setColor(Color.white);
-        g3.drawString("Oh dear... you have died.", gp.screenWidth / 4, gp.screenHeight / 2);
+        //
+        g3.drawImage(deathScreenIcon, 0, 0, null);
 
         //Death Box
         g3.setColor(Color.red);
-        g3.fillRect(65, 50, gp.screenWidth / 2, gp.screenHeight / 4);
+        g3.fillRect(65, 50, gp.screenWidth / 2, gp.screenHeight / 8);
 
         //Death Box Score Text
         g3.setColor(Color.white);
-        g3.drawString("You scored: " + score, 85, 88);
+        g3.drawString("You scored: " + score, 90, 71);
 
         //High Scores Box + Text
-        g3.fillRect(gp.screenWidth / 5 - 5, gp.screenHeight / 2 + 10, gp.tileSize * 10, gp.tileSize * 4);
+        g3.fillRect(gp.screenWidth / 5 - 5, gp.screenHeight / 3 + 10, gp.tileSize * 10, gp.tileSize * 4);
         g3.setColor(Color.BLACK);
-        g3.drawString("High Scores", 95, 150);
+        g3.drawString("High Scores", 95, 112);
 
         //Highscores List
+        g3.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        g3.drawString("1st: " + HighScoreReader.firstPlaceValue, 50, 128);
+        g3.setFont(new Font("SansSerif", Font.PLAIN, 11));
+        g3.drawString("2nd: " + HighScoreReader.secondPlaceValue, 50, 142);
         g3.setFont(new Font("SansSerif", Font.PLAIN, 10));
-        g3.drawString("1st: " + HighScoreReader.firstPlaceValue, 50, 160);
-        g3.drawString("2nd: " + HighScoreReader.secondPlaceValue, 50, 170);
-        g3.drawString("3rd: " + HighScoreReader.thirdPlaceValue, 50, 180);
+        g3.drawString("3rd: " + HighScoreReader.thirdPlaceValue, 50, 155);
 
         HighScoreWriter.scoreWritten = false;
+
+        //Button Area Middle
+        Color myGoldColor = new Color(234, 245, 0);
+        g3.setColor(Color.BLACK);
+        g3.fillRect(96, 160, 65, 30);
+        g3.setColor(myGoldColor);
+        g3.drawRect(96, 160, 65, 30);
+        g3.setColor(myGoldColor);
+        g3.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
+        g3.drawString("Reset", 107, 178);
+
+        //Button Area Right
+        g3.setColor(Color.BLACK);
+        g3.fillRect(90, 192, 75, 16);
+        g3.setColor(myGoldColor);
+        g3.drawRect(90, 192, 75, 16);
+        g3.setColor(myGoldColor);
+        g3.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+        g3.drawString("Main Menu", 98, 204);
     }
 
     public void drawDebugPanel(Graphics2D g2) {
@@ -186,6 +206,7 @@ public class Interfaces extends Entity {
             pauseInterfaceIcon = ImageIO.read(Entity.class.getResourceAsStream("/pauseInterfaceIcon.png"));
             titleScreenIcon = ImageIO.read(Entity.class.getResourceAsStream("/titleScreenBackground.png"));
             changeBirdIcon = ImageIO.read(Entity.class.getResourceAsStream("/selectBirdBackground.png"));
+            deathScreenIcon = ImageIO.read(Entity.class.getResourceAsStream("/deathScreenIcon.png"));
 
             //Misc Sprites
             blueBirdFrame0 = ImageIO.read(Entity.class.getResourceAsStream("/playerframe.png"));

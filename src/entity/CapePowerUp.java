@@ -57,9 +57,9 @@ public class CapePowerUp extends Entity {
     public void draw(Graphics2D g2) {
         //Bottom Left Icon showing if it's active
         if(Entity.capePowerUpEnabled) {
-            g2.drawImage(getCapeChargeImage(), 2, 172, gp.tileSize * 2, gp.tileSize * 2, null);
+            g2.drawImage(getCapeChargeImage(), 2, 190, gp.tileSize * 2, gp.tileSize * 2, null);
         } else {
-            g2.drawImage(capeInactive, 2, 172, gp.tileSize * 2, gp.tileSize * 2, null);
+            g2.drawImage(capeInactive, 2, 190, gp.tileSize * 2, gp.tileSize * 2, null);
         }
 
         //if powerUps can spawn && powerUpDecider == 1; "capePowerUp", draw powerUp in game world
