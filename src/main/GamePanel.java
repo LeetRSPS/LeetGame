@@ -98,7 +98,7 @@ public class GamePanel extends JPanel implements Runnable {
             interfaces.update();
         }
         if(gameState == pauseState) {
-            interfaces.update();
+            //Update nothing
         }
         if(gameState == playState) {
             player.update();
@@ -162,13 +162,12 @@ public class GamePanel extends JPanel implements Runnable {
         keyHandler.spacePressed = false;
         mouseHandler.mouse1Pressed = false;
         mouseHandler.mouse3Pressed = false;
+        keyHandler.escapePressed = false;
         keyHandler.canMove = true;
         mouseHandler.canMove = true;
         debugModeOn = false;
 
-        if(switchGameState) {
-            gameState = playState;
-        }
+        gameState = playState;
 
         //Re-initialize components
         player.initializePlayer();

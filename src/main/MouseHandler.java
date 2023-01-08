@@ -43,7 +43,8 @@ public class MouseHandler implements MouseListener {
             //Play Button
             if(e.getX() > 94 && e.getX() < 161 && e.getY() > 124 && e.getY() < 157) {
                 GamePanel.gameState = GamePanel.playState;
-                GamePanel.switchGameState = true;
+                GamePanel gamePanel = new GamePanel();
+                gamePanel.initializeGameSettings();
             }
             //Change Bird
             if(e.getX() > 10 && e.getX() < 102 && e.getY() > 180 && e.getY() < 198) {
