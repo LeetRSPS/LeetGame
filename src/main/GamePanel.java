@@ -2,6 +2,7 @@ package main;
 
 import entity.*;
 import entity.Background;
+import highscores.HighscoreUpdater;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,6 +34,7 @@ public class GamePanel extends JPanel implements Runnable {
     public static final int pauseState = 2;
     public static final int changeBirdState = 3;
     public static final int deadBirdState = 4;
+    public static final int changingNameState = 5;
 
     //Initialize Components
     static MouseTracker mouseT = new MouseTracker();
@@ -108,6 +110,9 @@ public class GamePanel extends JPanel implements Runnable {
             capePowerUp.update();
             entity.update();
         }
+        if(gameState == changingNameState) {
+            //Update Nothing
+        }
     }
 
     public void paintComponent(Graphics g) {
@@ -136,6 +141,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
         if(gameState == deadBirdState) {
             interfaces.drawDeath(g2);
+            HighscoreUpdater.updateHighscore();
         }
         if(gameState == pauseState) {
             interfaces.drawPauseScreen(g2);

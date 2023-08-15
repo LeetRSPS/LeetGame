@@ -1,5 +1,7 @@
 package main;
 
+import highscores.HighscoreUpdater;
+import highscores.UsernamePrompt;
 import org.w3c.dom.css.Rect;
 
 import java.awt.*;
@@ -30,6 +32,11 @@ public class MouseHandler implements MouseListener {
             if(e.getX() > 89 && e.getX() < 166 && e.getY() > 192 && e.getY() < 209) {
                 GamePanel.gameState = GamePanel.titleState;
             }
+
+            //Save Button
+            if(e.getX() > 51 && e.getX() < 114 && e.getY() > 162 && e.getY() < 189) {
+                HighscoreUpdater.updateHighscore();
+            }
         }
 
         if(GamePanel.gameState == GamePanel.titleState) {
@@ -45,7 +52,7 @@ public class MouseHandler implements MouseListener {
             }
             //Change Name
             if(e.getX() > 154 && e.getX() < 247 && e.getY() > 180 && e.getY() < 198) {
-                System.out.println("Change Name Button Clicked");
+                UsernamePrompt.usernamePrompt();
             }
         }
         if(GamePanel.gameState == GamePanel.pauseState) {

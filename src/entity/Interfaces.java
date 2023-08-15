@@ -161,12 +161,12 @@ public class Interfaces extends Entity {
         //Button Area Middle
         Color myGoldColor = new Color(234, 245, 0);
         g3.setColor(Color.BLACK);
-        g3.fillRect(96, 160, 65, 30);
+        g3.fillRect(130, 160, 65, 30);
         g3.setColor(myGoldColor);
-        g3.drawRect(96, 160, 65, 30);
+        g3.drawRect(130, 160, 65, 30);
         g3.setColor(myGoldColor);
         g3.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
-        g3.drawString("Reset", 107, 178);
+        g3.drawString("Reset", 142, 178);
 
         //Button Area Right
         g3.setColor(Color.BLACK);
@@ -176,6 +176,15 @@ public class Interfaces extends Entity {
         g3.setColor(myGoldColor);
         g3.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
         g3.drawString("Main Menu", 98, 204);
+
+        //Save High Score
+        g3.setColor(Color.BLACK);
+        g3.fillRect(51, 160, 65, 30);
+        g3.setColor(myGoldColor);
+        g3.drawRect(51, 160, 65, 30);
+        g3.setColor(myGoldColor);
+        g3.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
+        g3.drawString("Save", 63, 178);
     }
 
     public void drawDebugPanel(Graphics2D g2) {
